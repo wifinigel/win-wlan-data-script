@@ -7,13 +7,14 @@ A script to parse the output of the 'netsh wlan show interfaces' cmd &amp; turn 
  from the "netsh wlan show interfaces" command ouput in CSV form. Pipe the
  output in to a filename to save as a file:
 
- wlan_data_v0.02.ps1 >> c:\temp\wlan_data.csv
+ cd <dir_where_script_is_installed>
+ .\wlan_data_v0.02.ps1 >> c:\temp\wlan_data.csv
 
  ALternatively, to monitor the output at the same time as writing to the 
  CS file, us this command in the Powershell:
 
- wlan_data_v0.02.ps1 | Tee-Object -file test.csv
-
+ cd <dir_where_script_is_installed>
+ .\wlan_data_v0.02.ps1 | Tee-Object -file test.csv
 
  Inspired by Matt Frederick's blog post: 
  https://finesine.com/2016/09/17/using-netsh-wlan-show-interfaces-to-monitor-associationroaming/
