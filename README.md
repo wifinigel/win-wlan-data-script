@@ -11,7 +11,7 @@ A script to parse the output of the 'netsh wlan show interfaces' cmd &amp; turn 
  
  .\wlan_data_v0.02.ps1 >> c:\temp\wlan_data.csv
 
- A;ternatively, to monitor the output at the same time as writing to the 
+ Alternatively, to monitor the output at the same time as writing to the 
  CS file, us this command in the Powershell:
 
  cd [dir_where_script_is_installed] 
