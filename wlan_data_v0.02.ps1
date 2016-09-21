@@ -6,12 +6,14 @@
 # from the "netsh wlan show interfaces" command ouput in CSV form. Pipe the
 # output in to a filename to save as a file:
 #
-# wlan_data_v0.02.ps1 >> c:\temp\wlan_data.csv
+# cd <dir_you_script_is_in>
+# .\wlan_data_v0.02.ps1 >> c:\temp\wlan_data.csv
 #
 # ALternatively, to monitor the output at the same time as writing to the 
 # CS file, us this command in the Powershell:
 #
-# wlan_data_v0.02.ps1 | Tee-Object -file test.csv
+# cd <dir_you_script_is_in>
+# .\wlan_data_v0.02.ps1 | Tee-Object -file test.csv
 #
 # V0.01 - 19th Sept 2016 - N.Bowden (@WiFiNigel - not a real coder...)
 # V0.02 - 20th Sept 2016 - (N.Bowden) Updated comments to include use of tee
