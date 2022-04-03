@@ -19,6 +19,10 @@
 # V0.02 - 20th Sept 2016 - (N.Bowden) Updated comments to include use of tee
 #                          command in Powershell. 
 #
+# V0.03 - 2nd April 2022 - N Swiatecki (@Swiatecki)
+#                          * patched script to account for new colocated AP output messsing up the band output 
+#                          * Updated channel output to include the band 
+#
 #
 # Inspired by Matt Frederick's blog post: 
 # https://finesine.com/2016/09/17/using-netsh-wlan-show-interfaces-to-monitor-associationroaming/
@@ -110,7 +114,8 @@ Do{
 
     # BSSID
     $BSSID_line = $output | Select-String -Pattern 'BSSID'
-    $BSSID = ($BSSID_line -split ":", 2)[-1].Trim()
+    $BSSID_line2 = (($BSSID_line -split [Environment]::NewLine)[0])
+    $BSSID = (($BSSID_line2 -split ":", 2)[-1].Trim())
 
     # NetworkType
     $NetworkType_line = $output | Select-String -Pattern 'Network type'
@@ -136,6 +141,10 @@ Do{
     $Channel_line = $output | Select-String -Pattern 'Channel'
     $Channel = ($Channel_line -split ":")[-1].Trim()
 
+    # Band
+    $Band_line = $output | Select-String -Pattern 'Band      '# Adding spaces after Band is a dirty hack to get the operating band, and not the band of the colocated APs
+    $Band = ($Band_line -split ":")[-1].Trim()
+
     # Receive Rate
     $RecRate_line = $output | Select-String -Pattern 'Receive rate'
     $RecRate = ($RecRate_line -split ":")[-1].Trim()
@@ -157,7 +166,7 @@ Do{
     $Profile = ($Profile_line -split ":")[-1].Trim()
   }
 
-  Write-Output "$CurrentTime, $Name, $Description, $GUID, $Physical, $State, $SSID, $BSSID, $NetworkType, $RadioType, $Authentication, $Cipher, $Connection, $Channel, $RecRate, $TransRate, $SignalLevelPercent, $SignalLeveldBm, $Profile"
+  Write-Output "$CurrentTime, $Name, $Description, $GUID, $Physical, $State, $SSID, $BSSID, $NetworkType, $RadioType, $Authentication, $Cipher, $Connection, $Channel ($Band), $RecRate, $TransRate, $SignalLevelPercent, $SignalLeveldBm, $Profile"
 
   Start-Sleep -s $SleepInterval
 }
